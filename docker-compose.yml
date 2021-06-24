@@ -21,7 +21,8 @@ services:
       - app-network
     depends_on:
       - "mongodb"
-    command: yarn start
+    command: >
+      sh -c "yarn seed && yarn start"
 networks:
   app-network:
     driver: bridge

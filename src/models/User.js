@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const schema = mongoose.Schema({
-  nome: {
+  name: {
     type: String,
     required: true,
   },
@@ -9,15 +9,15 @@ const schema = mongoose.Schema({
     type: String,
     required: true,
   },
-  senha: {
+  password: {
     type: String,
     required: true,
   },
-  perfil: {
+  role: {
     type: String,
     required: true,
   },
-  localizacao: {
+  location: {
     type: {
       type: String,
       enum: ["Point"],

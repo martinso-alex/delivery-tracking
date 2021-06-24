@@ -6,7 +6,8 @@
   "author": "Alexandre Martins <martinso.alex@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon -L src"
+    "start": "nodemon -L src",
+    "seed": "node src/database/seeds.js"
   },
   "dependencies": {
     "express": "^4.17.1",
