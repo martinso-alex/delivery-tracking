@@ -24,7 +24,7 @@ const data = [
     documents: [
       {
         location: {
-          coordinates: [-15.813515, -47.906113],
+          coordinates: [-15.812669, -47.911263],
         },
         _id: "60d358cab15a9a00513a4adc",
         name: "Teste da Silva",
@@ -46,7 +46,7 @@ const data = [
       },
       {
         location: {
-          coordinates: [-15.8136, -47.9066],
+          coordinates: [-15.819192, -47.909624],
         },
         _id: "60d35d60b15a9a00513a4ae0",
         name: "Teste de Olinda",
