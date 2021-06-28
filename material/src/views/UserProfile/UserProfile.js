@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -43,28 +43,43 @@ const useStyles = makeStyles(styles);
 
 export default function TableList() {
   const classes = useStyles();
+
+  const [meals, setMeals] = useState([]);
+
+  useEffect(() => {
+    const apiUrl = `http://localhost:8080/api/meal`;
+    let mealsArray = [];
+
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then((res) => {
+        res.map((meal) =>
+          mealsArray.push([
+            meal.user.name,
+            meal.name,
+            "R$" + meal.price.toString(),
+          ])
+        );
+
+        setMeals(mealsArray);
+      });
+  }, []);
+
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Simple Table</h4>
+            <h4 className={classes.cardTitleWhite}>Sugestões</h4>
             <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
+              Aqui estão algumas sugestões de acordo com suas preferências:
             </p>
           </CardHeader>
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                ["Mason Porter", "Chile", "Gloucester", "$78,615"],
-              ]}
+              tableHead={["Restaurante", "Prato", "Preço"]}
+              tableData={meals}
             />
           </CardBody>
         </Card>

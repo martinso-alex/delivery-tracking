@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -43,28 +43,43 @@ const useStyles = makeStyles(styles);
 
 export default function TableList() {
   const classes = useStyles();
+
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const apiUrl = `http://localhost:8080/api/order`;
+    let ordersArray = [];
+
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then((res) => {
+        res.map((order) =>
+          ordersArray.push([
+            order.user.name,
+            order.meal.name,
+            "R$" + order.meal.price.toString(),
+          ])
+        );
+
+        setOrders(ordersArray);
+      });
+  }, []);
+
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Simple Table</h4>
+            <h4 className={classes.cardTitleWhite}>Pedidos</h4>
             <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
+              Dados de pedidos por cliente:
             </p>
           </CardHeader>
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                ["Mason Porter", "Chile", "Gloucester", "$78,615"],
-              ]}
+              tableHead={["Cliente", "Prato", "Preço"]}
+              tableData={orders}
             />
           </CardBody>
         </Card>
